@@ -13,7 +13,6 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
           handler: function() {
             this.hrWindow = new Ext.Window({
                 title: 'Insert Rule',
-                animateTarget: btn.getEl(),
                 items: [{
                     itemId: 'insert-hr',
                     xtype: 'form',
