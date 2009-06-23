@@ -13,7 +13,6 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
           handler: function() {
             var tableWindow = new Ext.Window({
                 title: 'Insert Table',
-                animateTarget: btn.getEl(),
                 items: [{
                     itemId: 'insert-table',
                     xtype: 'form',
