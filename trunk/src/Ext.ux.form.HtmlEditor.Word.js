@@ -60,7 +60,8 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
                 text: 'Cancel',
                 handler: function() {
                   wordPasteWindow.close();
-                }
+                },
+				scope: this
               }]
             });
             wordPasteWindow.show();

@@ -80,7 +80,8 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                     text: 'Cancel',
                     handler: function() {
                       tableWindow.close();
-                    }
+                    },
+					scope: this
                 }]
             }).show();
           },

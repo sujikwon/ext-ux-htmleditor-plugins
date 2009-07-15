@@ -49,7 +49,8 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                     text: 'Cancel',
                     handler: function() {
                       this.hrWindow.close();
-                    }
+                    },
+					scope: this
                 }]
             }).show();
           },
