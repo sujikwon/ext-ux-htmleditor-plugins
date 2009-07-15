@@ -55,7 +55,8 @@ Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
                     text: 'Cancel',
                     handler: function() {
                       this.charWindow.close();
-                    }
+                    },
+					scope: this
                 }]
             });
 			this.charWindow.show();
