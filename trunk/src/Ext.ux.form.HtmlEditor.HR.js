@@ -1,11 +1,18 @@
 /**
- * @author Shea
+ * @author Shea Frederick - http://www.vinylfox.com
+ * @class Ext.ux.form.HtmlEditor.HR
+ * @extends Ext.util.Observable
+ * <p>A plugin that creates a button on the HtmlEditor for inserting a horizontal rule.</p>
  */
 Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
+	// private
+	cmd: 'hr',
+	// private
     init: function(cmp){
         this.cmp = cmp;
         this.cmp.on('render', this.onRender, this);
     },
+	// private
     onRender: function() {
         var cmp = this.cmp;
         var btn = this.cmp.getToolbar().addButton({
@@ -34,7 +41,7 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                         listeners: {
                             specialkey: function(f, e){
                                 if (e.getKey() == e.ENTER || e.getKey() == e.RETURN){
-                                    this.insertHR();
+                                    this.doInsertHR();
                                 }
                             },
                             scope: this
@@ -43,7 +50,7 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                 }],
                 buttons: [{
                     text: 'Insert',
-                    handler: this.insertHR,
+                    handler: this.doInsertHR,
                     scope: this
                 }, {
                     text: 'Cancel',
@@ -58,16 +65,24 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
           tooltip: 'Insert Horizontal Rule'
         });
     },
-    insertHR: function() {
+	// private
+    doInsertHR: function() {
         var frm = this.hrWindow.getComponent('insert-hr').getForm();
         if (frm.isValid()) {
             var hrwidth = frm.findField('hrwidth').getValue();
             if (hrwidth) {
-                this.cmp.insertAtCursor('<hr width="'+hrwidth+'">');
+                this.insertHR(hrwidth);
             }else{
-                this.cmp.insertAtCursor('<hr width="100%">');
+                this.insertHR('100%');
             }
             this.hrWindow.close();
         }
-    }
+    },
+    /**
+     * Insert a horizontal rule into the document.
+     * @param w String The width of the horizontal rule as the <tt>width</tt> attribute of the HR tag expects. ie: '100%' or '400' (pixels).
+     */
+	insertHR: function(w){
+		this.cmp.insertAtCursor('<hr width="'+w+'">');
+	}
 });
