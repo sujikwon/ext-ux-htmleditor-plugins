@@ -1,11 +1,23 @@
 /**
- * @author Shea
+ * @author Shea Frederick - http://www.vinylfox.com
+ * @class Ext.ux.form.HtmlEditor.Table
+ * @extends Ext.util.Observable
+ * <p>A plugin that creates a button on the HtmlEditor for making simple tables.</p>
  */
 Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
+	// private
+	cmd: 'table',
+    /**
+     * @cfg {Array} tableBorderOptions
+     * A nested array of value/display options to present to the user for table border style. Defaults to a simple list of 5 varrying border types.
+     */
+	tableBorderOptions: [['none','None'],['1px solid #000','Sold Thin'],['2px solid #000','Solid Thick'],['1px dashed #000','Dashed'],['1px dotted #000','Dotted']],
+	// private
     init: function(cmp){
         this.cmp = cmp;
         this.cmp.on('render', this.onRender, this);
     },
+	// private
     onRender: function() {
         var cmp = this.cmp;
         var btn = this.cmp.getToolbar().addButton({
@@ -44,7 +56,7 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                         store: new Ext.data.ArrayStore({
                             autoDestroy: true,
                             fields: ['spec','val'],
-                            data: [['none','None'],['1px solid #000','Sold Thin'],['2px solid #000','Solid Thick'],['1px dashed #000','Dashed'],['1px dotted #000','Dotted']]
+                            data: this.tableBorderOptions
                         }),
                         triggerAction: 'all',
                         value: 'none',

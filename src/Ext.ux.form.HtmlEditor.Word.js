@@ -1,13 +1,22 @@
 /**
- * @author Shea
+ * @author Shea Frederick - http://www.vinylfox.com
+ * @class Ext.ux.form.HtmlEditor.Word
+ * @extends Ext.util.Observable
+ * <p>A plugin that creates a button on the HtmlEditor for pasting text from Word without all the jibberish html.</p>
  */
 Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
+	// private
     init: function(cmp){
         
         this.cmp = cmp;
         this.cmp.on('render', this.onRender, this);
         
     },
+    /**
+     * Cleans up the jubberish html from Word pasted text.
+     * @param wordPaste String The text that needs to be cleansed of Word jibberish html.
+     * @return {String} The passed in text with all Word jibberish html removed.
+     */
     fixWordPaste: function(wordPaste) {
         
         // remove microsoft jibberish using regex jibberish
@@ -29,6 +38,7 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
         return wordPaste;
         
     },
+	// private
     onRender: function() {
         
         this.cmp.getToolbar().add({
