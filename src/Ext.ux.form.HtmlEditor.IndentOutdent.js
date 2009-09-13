@@ -5,12 +5,18 @@
  * <p>A plugin that creates two buttons on the HtmlEditor for indenting and outdenting of selected text.</p>
  */
 Ext.ux.form.HtmlEditor.IndentOutdent = Ext.extend(Ext.ux.form.HtmlEditor.MidasCommand, {
-	// private
-    midasBtns: ['|',{
+    // private
+    midasBtns: ['|', {
         cmd: 'indent',
-        title: 'Indent Text'
+        tooltip: {
+            title: 'Indent Text'
+        },
+        overflowText: 'Indent Text'
     }, {
         cmd: 'outdent',
-        title: 'Outdent Text'
+        tooltip: {
+            title: 'Outdent Text'
+        },
+        overflowText: 'Outdent Text'
     }]
 });

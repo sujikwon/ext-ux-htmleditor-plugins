@@ -5,14 +5,20 @@
  * <p>A plugin that creates two buttons on the HtmlEditor for superscript and subscripting of selected text.</p>
  */
 Ext.ux.form.HtmlEditor.SubSuperScript = Ext.extend(Ext.ux.form.HtmlEditor.MidasCommand, {
-	// private
-    midasBtns: ['|',{
-		enableOnSelection: true,
+    // private
+    midasBtns: ['|', {
+        enableOnSelection: true,
         cmd: 'subscript',
-        title: 'Subscript'
+        tooltip: {
+            title: 'Subscript'
+        },
+        overflowText: 'Subscript'
     }, {
-		enableOnSelection: true,
+        enableOnSelection: true,
         cmd: 'superscript',
-        title: 'Superscript'
+        tooltip: {
+            title: 'Superscript'
+        },
+        overflowText: 'Superscript'
     }]
 });

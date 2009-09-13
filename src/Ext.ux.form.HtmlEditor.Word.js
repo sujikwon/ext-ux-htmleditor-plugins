@@ -71,7 +71,6 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
      */
     fixWordPaste: function(wordPaste) {
         
-        // remove microsoft jibberish using regex jibberish
         var removals = [/&nbsp;/ig, /[\r\n]/g, /<(xml|style)[^>]*>.*?<\/\1>/ig, /<\/?(meta|object|span)[^>]*>/ig,
 			/<\/?[A-Z0-9]*:[A-Z]*[^>]*>/ig, /(lang|class|type|href|name|title|id|clear)=\"[^\"]*\"/ig, /style=(\'\'|\"\")/ig, /<![\[-].*?-*>/g, 
 			/MsoNormal/g, /<\\?\?xml[^>]*>/g, /<\/?o:p[^>]*>/g, /<\/?v:[^>]*>/g, /<\/?o:[^>]*>/g, /<\/?st1:[^>]*>/g, /&nbsp;/g, 
@@ -81,7 +80,7 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
             /lang=\'[^\"]*\'/g, /class=\"[^\"]*\"/g, /class=\'[^\"]*\'/g, /type=\"[^\"]*\"/g, /type=\'[^\"]*\'/g, /href=\'#[^\"]*\'/g, 
             /href=\"#[^\"]*\"/g, /name=\"[^\"]*\"/g, /name=\'[^\"]*\'/g, / clear=\"all\"/g, /id=\"[^\"]*\"/g, /title=\"[^\"]*\"/g, 
             /<span[^>]*>/g, /<\/?span[^>]*>/g, /class=/g];
-		
+					
         Ext.each(removals, function(s){
             wordPaste = wordPaste.replace(s, "");
         });
@@ -96,14 +95,17 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
     onRender: function() {
         
         this.cmp.getToolbar().add({
-          iconCls: 'x-edit-wordpaste',
-		  pressed: true,
-          handler: function(t) {
-            t.toggle(!t.pressed);
-			this.wordPasteEnabled = !this.wordPasteEnabled;
-          },
-          scope: this,
-          tooltip: '<b>Clean Text</b><br>Cleanse text pasted from Word or other Rich Text applications'
+            iconCls: 'x-edit-wordpaste',
+            pressed: true,
+            handler: function(t){
+                t.toggle(!t.pressed);
+                this.wordPasteEnabled = !this.wordPasteEnabled;
+            },
+            scope: this,
+            tooltip: {
+                text: 'Cleanse text pasted from Word or other Rich Text applications'
+            }
         });
+		
     }
 });

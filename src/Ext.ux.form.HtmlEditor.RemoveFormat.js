@@ -5,9 +5,12 @@
  * <p>A plugin that creates a button on the HtmlEditor that will remove all formatting on selected text.</p>
  */
 Ext.ux.form.HtmlEditor.RemoveFormat = Ext.extend(Ext.ux.form.HtmlEditor.MidasCommand, {
-    midasBtns: ['|',{
-		enableOnSelection: true,
+    midasBtns: ['|', {
+        enableOnSelection: true,
         cmd: 'removeFormat',
-        title: 'Remove Formatting'
+        tooltip: {
+            title: 'Remove Formatting'
+        },
+        overflowText: 'Remove Formatting'
     }]
 });
