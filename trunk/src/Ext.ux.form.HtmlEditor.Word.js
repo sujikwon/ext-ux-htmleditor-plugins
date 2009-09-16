@@ -79,7 +79,7 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
             /<\/?o:p[^>]*>/g, /<\/?v:[^>]*>/g, /<\/?o:[^>]*>/g, /<\/?st1:[^>]*>/g, /style=\"[^\"]*\"/g, /style=\'[^\"]*\'/g, /lang=\"[^\"]*\"/g, 
             /lang=\'[^\"]*\'/g, /class=\"[^\"]*\"/g, /class=\'[^\"]*\'/g, /type=\"[^\"]*\"/g, /type=\'[^\"]*\'/g, /href=\'#[^\"]*\'/g, 
             /href=\"#[^\"]*\"/g, /name=\"[^\"]*\"/g, /name=\'[^\"]*\'/g, / clear=\"all\"/g, /id=\"[^\"]*\"/g, /title=\"[^\"]*\"/g, 
-            /<span[^>]*>/g, /<\/?span[^>]*>/g, /class=/g];
+            /<span[^>]*>/g, /<\/?span[^>]*>/g, /<title[^>]*>/g, /<\/?title[^>]*>/g, /class=/g, /<w:[^>]*>(.*)<\/w:[^>]*>/g];
 					
         Ext.each(removals, function(s){
             wordPaste = wordPaste.replace(s, "");
