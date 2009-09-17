@@ -105,7 +105,8 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
             scope: this,
             tooltip: {
                 text: 'Cleanse text pasted from Word or other Rich Text applications'
-            }
+            },
+            overflowText: 'Word Paste'
         });
 		
     }
