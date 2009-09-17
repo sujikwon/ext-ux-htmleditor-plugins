@@ -1,5 +1,10 @@
 /*
-	These are examples of styles for the button icons
+	These are examples of styles for the button icons (you must supply the icon files yourself)
+	
+	For nice icon sets, check out the following sites.
+	- http://www.famfamfam.com/
+	- http://code.google.com/p/fugue-icons/
+    - http://www.everaldo.com/crystal/
 */
 .x-edit-wordpaste {background: url(../images/document-word-text.png) 0 0 no-repeat !important;}
 .x-edit-table {background: url(../images/table.png) 0 0 no-repeat !important;}
