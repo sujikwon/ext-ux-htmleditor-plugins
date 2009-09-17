@@ -9,12 +9,14 @@ Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
      * @cfg {Array} specialChars
      * An array of additional characters to display for user selection.  Uses numeric portion of the ASCII HTML Character Code only. For example, to use the Copyright symbol, which is &#169; we would just specify <tt>169</tt> (ie: <tt>specialChars:[169]</tt>).
      */
-    specialChars: [],
+    specialChars: [153],
     /**
      * @cfg {Array} charRange
      * Two numbers specifying a range of ASCII HTML Characters to display for user selection. Defaults to <tt>[160, 256]</tt>.
      */
     charRange: [160, 256],
+    // private
+    chars: [],
     // private
     init: function(cmp){
         this.cmp = cmp;
@@ -26,17 +28,19 @@ Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
         var btn = this.cmp.getToolbar().addButton({
             iconCls: 'x-edit-char',
             handler: function(){
-                if (this.specialChars.length) {
-                    Ext.each(this.specialChars, function(c, i){
-                        this.specialChars[i] = ['&#' + c + ';'];
-                    }, this);
-                }
-                for (i = this.charRange[0]; i < this.charRange[1]; i++) {
-                    this.specialChars.push(['&#' + i + ';']);
+                if (!this.chars.length) {
+                    if (this.specialChars.length) {
+                        Ext.each(this.specialChars, function(c, i){
+                            this.chars[i] = ['&#' + c + ';'];
+                        }, this);
+                    }
+                    for (i = this.charRange[0]; i < this.charRange[1]; i++) {
+                        this.chars.push(['&#' + i + ';']);
+                    }
                 }
                 var charStore = new Ext.data.ArrayStore({
                     fields: ['char'],
-                    data: this.specialChars
+                    data: this.chars
                 });
                 this.charWindow = new Ext.Window({
                     title: 'Insert Special Character',
