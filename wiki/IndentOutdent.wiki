@@ -1,6 +1,6 @@
 = Introduction =
 
-The IndetOutdent provides the ability to Indent and Outdent (remove indentation) from selected text.
+The IndentOutdent provides the ability to Indent and Outdent (remove indentation) from selected text.
 
 
 = Details =
