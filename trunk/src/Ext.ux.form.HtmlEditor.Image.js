@@ -39,10 +39,13 @@ Ext.ux.form.HtmlEditor.Image = Ext.extend(Ext.util.Observable, {
     },
     onRender: function() {
         var btn = this.cmp.getToolbar().addButton({
-            iconCls: 'x-edit-pictures',
+            iconCls: 'x-edit-image',
             handler: this.selectImage,
             scope: this,
-            tooltip: 'Insert Image'
+            tooltip: {
+                title: 'Insert Image'
+            },
+            overflowText: 'Insert Image'
         });
     },
     selectImage: Ext.emptyFn,

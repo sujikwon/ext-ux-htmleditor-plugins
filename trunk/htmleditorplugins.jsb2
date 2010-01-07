@@ -33,6 +33,12 @@
         },{
             text: 'Ext.ux.form.HtmlEditor.HR.js',
             path: 'src/'
+        },{
+            text: 'Ext.ux.form.HtmlEditor.UndoRedo.js',
+            path: 'src/'
+        },{
+            text: 'Ext.ux.form.HtmlEditor.Link.js',
+            path: 'src/'
         }]
     }],
     resources: []
