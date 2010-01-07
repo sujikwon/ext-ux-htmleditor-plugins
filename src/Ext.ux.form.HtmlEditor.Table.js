@@ -8,6 +8,16 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
     // private
     cmd: 'table',
     /**
+     * @cfg {Boolean} showCellLocationText
+     * Set true to display row and column informational text inside of newly created table cells.
+     */
+    showCellLocationText: true,
+    /**
+     * @cfg {String} cellLocationText
+     * The string to display inside of newly created table cells.
+     */
+    cellLocationText: '{0}&nbsp;-&nbsp;{1}',
+    /**
      * @cfg {Array} tableBorderOptions
      * A nested array of value/display options to present to the user for table border style. Defaults to a simple list of 5 varrying border types.
      */
@@ -19,7 +29,6 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
     },
     // private
     onRender: function(){
-        var cmp = this.cmp;
         var btn = this.cmp.getToolbar().addButton({
             iconCls: 'x-edit-table',
             handler: function(){
@@ -27,6 +36,7 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                     this.tableWindow = new Ext.Window({
                         title: 'Insert Table',
                         closeAction: 'hide',
+                        width: 230,
                         items: [{
                             itemId: 'insert-table',
                             xtype: 'form',
@@ -64,7 +74,17 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                                 value: 'none',
                                 displayField: 'val',
                                 valueField: 'spec',
-                                width: 90
+                                anchor: '100%'
+                            }, {
+                            	xtype: 'checkbox',
+                            	fieldLabel: 'Label Cells', //'Help Text',
+                            	checked: this.showCellLocationText,
+                            	listeners: {
+                            		check: function(){
+                            			this.showCellLocationText = !this.showCellLocationText;
+                            		},
+                            		scope: this
+                            	}
                             }]
                         }],
                         buttons: [{
@@ -74,12 +94,15 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                                 if (frm.isValid()) {
                                     var border = frm.findField('border').getValue();
                                     var rowcol = [frm.findField('row').getValue(), frm.findField('col').getValue()];
-                                    if (rowcol.length == 2 && rowcol[0] > 0 && rowcol[0] < 10 && rowcol[1] > 0 && rowcol[1] < 10) {
-                                        var html = "<table>";
+                                    if (rowcol.length == 2 && rowcol[0] > 0 && rowcol[1] > 0) {
+                                        var colwidth = Math.floor(100/rowcol[0]);
+                                        var html = "<table style='border-collapse: collapse'>";
+                                        var cellText = '&nbsp;';
+                                        if (this.showCellLocationText){ cellText = this.cellLocationText; }
                                         for (var row = 0; row < rowcol[0]; row++) {
                                             html += "<tr>";
                                             for (var col = 0; col < rowcol[1]; col++) {
-                                                html += "<td width='20%' style='border: " + border + ";'>" + row + "-" + col + "</td>";
+                                                html += "<td width='" + colwidth + "%' style='border: " + border + ";'>" + String.format(cellText, (row+1), String.fromCharCode(col+65)) + "</td>";
                                             }
                                             html += "</tr>";
                                         }

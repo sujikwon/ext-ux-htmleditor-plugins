@@ -6,6 +6,77 @@
  */
 Ext.ns('Ext.ux.form.HtmlEditor');
 
+if (!console) {
+    var console = {};
+    console.log = function(msg){
+        alert(msg);
+    };
+}
+
+if (!Ext.isObject){
+    Ext.isObject = function(v){
+        return v && typeof v == "object";
+    };
+}
+
+Ext.override(Ext.form.HtmlEditor, {
+    getSelectedText : function(clip){
+	    var doc = this.getDoc(), selDocFrag;
+	    var txt = '', hasHTML = false, selNodes = [], ret, html = '';
+	    if (this.win.getSelection || doc.getSelection){
+            console.log('win/doc getSelection');
+            // FF, Chrome, Safari
+            var sel = this.win.getSelection();
+            if (!sel) {
+                sel = doc.getSelection();
+            }
+            if (clip){
+                selDocFrag = sel.getRangeAt(0).extractContents();
+            }else{
+                selDocFrag = this.win.getSelection().getRangeAt(0).cloneContents();
+            }
+            Ext.each(selDocFrag.childNodes, function(n){
+                if (n.nodeType !== 3){
+                    hasHTML = true;
+                }
+            });
+            if (hasHTML){
+                var div = document.createElement ('div');
+                div.appendChild (selDocFrag);
+                html = div.innerHTML;
+                txt = this.win.getSelection()+'';
+            }else{
+                html = txt = selDocFrag.textContent;
+            }
+            ret = {
+                textContent: txt,
+                hasHTML: hasHTML,
+                html: html
+            };
+	    } else if (doc.selection){
+            // IE
+	    	this.win.focus();
+	    	console.log('doc createRange text');
+	        txt = doc.selection.createRange();
+            if (txt.text !== txt.htmlText){
+                hasHTML = true;
+            }
+            ret = {
+                textContent: txt.text,
+                hasHTML: hasHTML,
+                html: txt.htmlText
+            };
+	    } else {
+	    	console.log('fail');
+	    	return {
+                textContent: ''
+            };
+	    }
+        
+	    return ret;
+	}
+});
+
 Ext.ux.form.HtmlEditor.MidasCommand = Ext.extend(Ext.util.Observable, {
     // private
     init: function(cmp){
