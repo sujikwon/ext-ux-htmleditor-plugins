@@ -5,6 +5,10 @@
  * <p>A plugin that creates a button on the HtmlEditor for inserting special characters.</p>
  */
 Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
+    // SpecialCharacters language text
+    langTitle   : 'Insert Special Character',
+    langInsert  : 'Insert',
+    langCancel  : 'Cancel',
     /**
      * @cfg {Array} specialChars
      * An array of additional characters to display for user selection.  Uses numeric portion of the ASCII HTML Character Code only. For example, to use the Copyright symbol, which is &#169; we would just specify <tt>169</tt> (ie: <tt>specialChars:[169]</tt>).
@@ -43,7 +47,7 @@ Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
                     data: this.chars
                 });
                 this.charWindow = new Ext.Window({
-                    title: 'Insert Special Character',
+                    title: this.langTitle,
                     width: 436,
                     autoHeight: true,
                     layout: 'fit',
@@ -65,7 +69,7 @@ Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
                         }
                     }],
                     buttons: [{
-                        text: 'Insert',
+                        text: this.langInsert,
                         handler: function(){
                             Ext.each(this.charWindow.charView.getSelectedRecords(), function(rec){
                                 var c = rec.get('char');
@@ -75,7 +79,7 @@ Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
                         },
                         scope: this
                     }, {
-                        text: 'Cancel',
+                        text: this.langCancel,
                         handler: function(){
                             this.charWindow.close();
                         },
@@ -86,9 +90,9 @@ Ext.ux.form.HtmlEditor.SpecialCharacters = Ext.extend(Ext.util.Observable, {
             },
             scope: this,
             tooltip: {
-                title: 'Insert Special Character'
+                title: this.langTitle
             },
-            overflowText: 'Special Characters'
+            overflowText: this.langTitle
         });
     },
     /**

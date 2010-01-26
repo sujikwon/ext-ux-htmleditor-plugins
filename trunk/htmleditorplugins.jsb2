@@ -39,6 +39,15 @@
         },{
             text: 'Ext.ux.form.HtmlEditor.Link.js',
             path: 'src/'
+        },{
+            text: 'Ext.ux.form.HtmlEditor.Image.js',
+            path: 'src/'
+        },{
+            text: 'Ext.ux.form.HtmlEditor.FindAndReplace.js',
+            path: 'src/'
+        },{
+            text: 'Ext.ux.form.HtmlEditor.Plugins.js',
+            path: 'src/'
         }]
     }],
     resources: []

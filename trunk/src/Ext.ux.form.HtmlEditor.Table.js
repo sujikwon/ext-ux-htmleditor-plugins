@@ -5,6 +5,14 @@
  * <p>A plugin that creates a button on the HtmlEditor for making simple tables.</p>
  */
 Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
+    // Table language text
+    langTitle       : 'Insert Table',
+    langInsert      : 'Insert',
+    langCancel      : 'Cancel',
+    langRows        : 'Rows',
+    langColumns     : 'Columns',
+    langBorder      : 'Border',
+    langCellLabel   : 'Label Cells',
     // private
     cmd: 'table',
     /**
@@ -34,7 +42,7 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
             handler: function(){
                 if (!this.tableWindow){
                     this.tableWindow = new Ext.Window({
-                        title: 'Insert Table',
+                        title: this.langTitle,
                         closeAction: 'hide',
                         width: 230,
                         items: [{
@@ -49,19 +57,19 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                                 xtype: 'numberfield',
                                 allowBlank: false,
                                 allowDecimals: false,
-                                fieldLabel: 'Rows',
+                                fieldLabel: this.langRows,
                                 name: 'row',
                                 width: 60
                             }, {
                                 xtype: 'numberfield',
                                 allowBlank: false,
                                 allowDecimals: false,
-                                fieldLabel: 'Columns',
+                                fieldLabel: this.langColumns,
                                 name: 'col',
                                 width: 60
                             }, {
                                 xtype: 'combo',
-                                fieldLabel: 'Border',
+                                fieldLabel: this.langBorder,
                                 name: 'border',
                                 forceSelection: true,
                                 mode: 'local',
@@ -77,7 +85,7 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                                 anchor: '100%'
                             }, {
                             	xtype: 'checkbox',
-                            	fieldLabel: 'Label Cells', //'Help Text',
+                            	fieldLabel: this.langCellLabel,
                             	checked: this.showCellLocationText,
                             	listeners: {
                             		check: function(){
@@ -88,7 +96,7 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                             }]
                         }],
                         buttons: [{
-                            text: 'Insert',
+                            text: this.langInsert,
                             handler: function(){
                                 var frm = this.tableWindow.getComponent('insert-table').getForm();
                                 if (frm.isValid()) {
@@ -120,7 +128,7 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                             },
                             scope: this
                         }, {
-                            text: 'Cancel',
+                            text: this.langCancel,
                             handler: function(){
                                 this.tableWindow.hide();
                             },
@@ -135,9 +143,9 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
             },
             scope: this,
             tooltip: {
-                title: 'Insert Table'
+                title: this.langTitle
             },
-            overflowText: 'Table'
+            overflowText: this.langTitle
         });
     }
 });

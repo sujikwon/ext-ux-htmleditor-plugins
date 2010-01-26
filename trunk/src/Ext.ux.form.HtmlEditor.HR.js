@@ -5,6 +5,12 @@
  * <p>A plugin that creates a button on the HtmlEditor for inserting a horizontal rule.</p>
  */
 Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
+    // HR language text
+    langTitle   : 'Horizontal Rule',
+    langHelp    : 'Enter the width of the Rule in percentage<br/> followed by the % sign at the end, or to<br/> set a fixed width ommit the % symbol.',
+    langInsert  : 'Insert',
+    langCancel  : 'Cancel',
+    langWidth   : 'Width',
     // private
     cmd: 'hr',
     // private
@@ -18,9 +24,9 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
         var btn = this.cmp.getToolbar().addButton({
             iconCls: 'x-edit-hr',
             handler: function(){
-                if (!this.hrWindow){
+                if (!this.hrWindow) {
                     this.hrWindow = new Ext.Window({
-                        title: 'Insert Rule',
+                        title: this.langTitle,
                         closeAction: 'hide',
                         items: [{
                             itemId: 'insert-hr',
@@ -32,19 +38,19 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                             labelAlign: 'right',
                             items: [{
                                 xtype: 'label',
-                                html: 'Enter the width of the Rule in percentage<br/> followed by the % sign at the end, or to<br/> set a fixed width ommit the % symbol.<br/>&nbsp;'
+                                html: this.langHelp + '<br/>&nbsp;'
                             }, {
                                 xtype: 'textfield',
                                 maskRe: /[0-9]|%/,
                                 regex: /^[1-9][0-9%]{1,3}/,
-                                fieldLabel: 'Width',
+                                fieldLabel: this.langWidth,
                                 name: 'hrwidth',
                                 width: 60,
-                                 listeners: {
+                                listeners: {
                                     specialkey: function(f, e){
                                         if ((e.getKey() == e.ENTER || e.getKey() == e.RETURN) && f.isValid()) {
                                             this.doInsertHR();
-                                        }else{
+                                        } else {
                                             f.getEl().frame();
                                         }
                                     },
@@ -53,34 +59,34 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                             }]
                         }],
                         buttons: [{
-                            text: 'Insert',
+                            text: this.langInsert,
                             handler: function(){
                                 var frm = this.hrWindow.getComponent('insert-hr').getForm();
-                                if (frm.isValid()){
+                                if (frm.isValid()) {
                                     this.doInsertHR();
-                                }else{
+                                } else {
                                     frm.findField('hrwidth').getEl().frame();
                                 }
-    						},
+                            },
                             scope: this
                         }, {
-                            text: 'Cancel',
+                            text: this.langCancel,
                             handler: function(){
                                 this.hrWindow.hide();
                             },
                             scope: this
                         }]
                     });
-                }else{
+                } else {
                     this.hrWindow.getEl().frame();
                 }
                 this.hrWindow.show();
             },
             scope: this,
             tooltip: {
-                title: 'Insert Horizontal Rule'
+                title: this.langInsert + ' ' + this.langTitle
             },
-            overflowText: 'Horizontal Rule'
+            overflowText: this.langTitle
         });
     },
     // private

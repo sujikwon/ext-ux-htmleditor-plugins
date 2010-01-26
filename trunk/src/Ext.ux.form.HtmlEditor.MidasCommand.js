@@ -6,46 +6,38 @@
  */
 Ext.ns('Ext.ux.form.HtmlEditor');
 
-if (!console) {
-    var console = {};
-    console.log = function(msg){
-        alert(msg);
-    };
-}
-
-if (!Ext.isObject){
+if (!Ext.isObject) {
     Ext.isObject = function(v){
         return v && typeof v == "object";
     };
 }
 
 Ext.override(Ext.form.HtmlEditor, {
-    getSelectedText : function(clip){
-	    var doc = this.getDoc(), selDocFrag;
-	    var txt = '', hasHTML = false, selNodes = [], ret, html = '';
-	    if (this.win.getSelection || doc.getSelection){
-            console.log('win/doc getSelection');
+    getSelectedText: function(clip){
+        var doc = this.getDoc(), selDocFrag;
+        var txt = '', hasHTML = false, selNodes = [], ret, html = '';
+        if (this.win.getSelection || doc.getSelection) {
             // FF, Chrome, Safari
             var sel = this.win.getSelection();
             if (!sel) {
                 sel = doc.getSelection();
             }
-            if (clip){
+            if (clip) {
                 selDocFrag = sel.getRangeAt(0).extractContents();
-            }else{
+            } else {
                 selDocFrag = this.win.getSelection().getRangeAt(0).cloneContents();
             }
             Ext.each(selDocFrag.childNodes, function(n){
-                if (n.nodeType !== 3){
+                if (n.nodeType !== 3) {
                     hasHTML = true;
                 }
             });
-            if (hasHTML){
-                var div = document.createElement ('div');
-                div.appendChild (selDocFrag);
+            if (hasHTML) {
+                var div = document.createElement('div');
+                div.appendChild(selDocFrag);
                 html = div.innerHTML;
-                txt = this.win.getSelection()+'';
-            }else{
+                txt = this.win.getSelection() + '';
+            } else {
                 html = txt = selDocFrag.textContent;
             }
             ret = {
@@ -53,12 +45,11 @@ Ext.override(Ext.form.HtmlEditor, {
                 hasHTML: hasHTML,
                 html: html
             };
-	    } else if (doc.selection){
+        } else if (doc.selection) {
             // IE
-	    	this.win.focus();
-	    	console.log('doc createRange text');
-	        txt = doc.selection.createRange();
-            if (txt.text !== txt.htmlText){
+            this.win.focus();
+            txt = doc.selection.createRange();
+            if (txt.text !== txt.htmlText) {
                 hasHTML = true;
             }
             ret = {
@@ -66,15 +57,14 @@ Ext.override(Ext.form.HtmlEditor, {
                 hasHTML: hasHTML,
                 html: txt.htmlText
             };
-	    } else {
-	    	console.log('fail');
-	    	return {
+        } else {
+            return {
                 textContent: ''
             };
-	    }
+        }
         
-	    return ret;
-	}
+        return ret;
+    }
 });
 
 Ext.ux.form.HtmlEditor.MidasCommand = Ext.extend(Ext.util.Observable, {
