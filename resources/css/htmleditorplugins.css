@@ -7,6 +7,7 @@
     - http://www.everaldo.com/crystal/
     
     See the notice.txt file in the images folder for possible licence conflicts with these images.
+    Some icons may be licenced under the Creative Commons licence - http://creativecommons.org/licenses/by/2.5/
     
 */
 .x-edit-wordpaste {background: url(../images/default/editor/edit-word-text.png) 0 0 no-repeat !important;}
@@ -20,6 +21,8 @@
 .x-edit-removeFormat {background: url(../images/default/editor/edit-removeFormat.png) 0 0 no-repeat !important;}
 .x-edit-image {background: url(../images/default/editor/edit-image.png) 0 0 no-repeat !important;}
 .x-edit-findandreplace {background: url(../images/default/editor/edit-findandreplace.png) 0 0 no-repeat !important;}
+.x-edit-undo {background: url(../images/default/editor/edit-undo.png) 0 0 no-repeat !important;}
+.x-edit-redo {background: url(../images/default/editor/edit-redo.png) 0 0 no-repeat !important;}
 
 /*
     When using the famfamfam set of icons, the following styles can be used, assuming the famfamfam 
@@ -34,6 +37,8 @@
 .x-edit-subscript {background: url(icons/text_subscript.png) 0 0 no-repeat !important;}
 .x-edit-superscript {background: url(icons/text_superscript.png) 0 0 no-repeat !important;}
 .x-edit-removeFormat {background: url(icons/exclamation.png) 0 0 no-repeat !important;} 
+.x-edit-undo {background: url(../images/default/editor/arrow_undo.png) 0 0 no-repeat !important;}
+.x-edit-redo {background: url(../images/default/editor/arrow_redo.png) 0 0 no-repeat !important;}
 
 */
 

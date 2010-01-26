@@ -5,10 +5,13 @@
  * <p>A plugin that creates a button on the HtmlEditor for pasting text from Word without all the jibberish html.</p>
  */
 Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
+    // Word language text
+    langTitle: 'Word Paste',
+    wordPasteEnabled: true,
+    // private
 	curLength: 0,
 	lastLength: 0,
 	lastValue: '',
-	wordPasteEnabled: true,
 	// private
     init: function(cmp){
         
@@ -106,7 +109,7 @@ Ext.ux.form.HtmlEditor.Word = Ext.extend(Ext.util.Observable, {
             tooltip: {
                 text: 'Cleanse text pasted from Word or other Rich Text applications'
             },
-            overflowText: 'Word Paste'
+            overflowText: this.langTitle
         });
 		
     }
