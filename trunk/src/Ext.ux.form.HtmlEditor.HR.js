@@ -11,6 +11,8 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
     langInsert  : 'Insert',
     langCancel  : 'Cancel',
     langWidth   : 'Width',
+    // defaults
+    defaultHRWidth: '100%',
     // private
     cmd: 'hr',
     // private
@@ -27,6 +29,7 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                 if (!this.hrWindow) {
                     this.hrWindow = new Ext.Window({
                         title: this.langTitle,
+                        width: 240,
                         closeAction: 'hide',
                         items: [{
                             itemId: 'insert-hr',
@@ -46,12 +49,11 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                                 fieldLabel: this.langWidth,
                                 name: 'hrwidth',
                                 width: 60,
+                                value: this.defaultHRWidth,
                                 listeners: {
                                     specialkey: function(f, e){
                                         if ((e.getKey() == e.ENTER || e.getKey() == e.RETURN) && f.isValid()) {
                                             this.doInsertHR();
-                                        } else {
-                                            f.getEl().frame();
                                         }
                                     },
                                     scope: this
@@ -75,7 +77,13 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
                                 this.hrWindow.hide();
                             },
                             scope: this
-                        }]
+                        }],
+                        listeners: {
+                            render: (Ext.isGecko) ? this.focusHRLong : this.focusHR,
+                            show: this.focusHR,
+                            move: this.focusHR,
+                            scope: this
+                        }
                     });
                 } else {
                     this.hrWindow.getEl().frame();
@@ -90,6 +98,26 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
         });
     },
     // private
+    focusHRLong: function(w){
+        this.focus(w, 600);
+    },
+    // private
+    focusHR: function(w){
+        this.focus(w, 100);
+    },
+    /**
+     * This method is just for focusing the text field use for entering the width of the HR.
+     * It's extra messy because Firefox seems to take a while longer to render the window than other browsers, 
+     * particularly when Firbug is enabled, which is all the time if your like me.
+     * Had to crank up the delay for focusing on render to 600ms for Firefox, and 100ms for all other focusing.
+     * Other browsers seem to work fine in all cases with as little as 50ms delay. Compromise bleh!
+     * @param {Object} win the window to focus
+     * @param {Integer} delay the delay in milliseconds before focusing
+     */
+    focus: function(win, delay){
+        win.getComponent('insert-hr').getForm().findField('hrwidth').focus(true, delay);
+    },
+    // private
     doInsertHR: function(){
         var frm = this.hrWindow.getComponent('insert-hr').getForm();
         if (frm.isValid()) {
@@ -97,7 +125,7 @@ Ext.ux.form.HtmlEditor.HR = Ext.extend(Ext.util.Observable, {
             if (hrwidth) {
                 this.insertHR(hrwidth);
             } else {
-                this.insertHR('100%');
+                this.insertHR(this.defaultHRWidth);
             }
             frm.reset();
             this.hrWindow.hide();
